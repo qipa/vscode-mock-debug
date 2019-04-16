@@ -43,6 +43,18 @@ export function deactivate() {
 
 class MockConfigurationProvider implements vscode.DebugConfigurationProvider {
 
+	provideDebugConfigurations(folder: WorkspaceFolder | undefined, token?: CancellationToken): ProviderResult<DebugConfiguration[]> {
+		const config = [
+			{
+				"type": "mock",
+				"request": "launch",
+				"name": "Ask for file name",
+				"program": "${workspaceFolder}/${command:AskForProgramName}",
+				"stopOnEntry": true
+			}
+		];
+		return config;
+	}
 	/**
 	 * Massage a debug configuration just before a debug session is being launched,
 	 * e.g. add all missing attributes to the debug configuration.
